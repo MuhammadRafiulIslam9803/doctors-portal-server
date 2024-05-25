@@ -53,6 +53,7 @@ async function run() {
     const usersCollection = client.db('doctorsPortal').collection('users');
     const doctorsCollection = client.db('doctorsPortal').collection('doctors');
     const paymentsCollection = client.db('doctorsPortal').collection('payments');
+    const spacialistCollection = client.db('doctorsPortal').collection('specialist');
 
 
     const verifyAdmin = async (req, res, next) => {
@@ -234,6 +235,13 @@ async function run() {
       const filter = { _id: new ObjectId(id) };
       const result = await doctorsCollection.deleteOne(filter);
       res.send(result);
+    })
+
+    app.get('/special' , async(req ,res)=>{
+      const query = {}
+      const cursor = spacialistCollection.find(query)
+      const users = await cursor.toArray()
+      res.send(users)
     })
 
 
